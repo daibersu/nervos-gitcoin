@@ -21,7 +21,7 @@ Deployed contract address: 0x860b61A3379F925710140c0A1F32173C17D5Dd2F
 Deploy transaction hash: 0x43519b1f30df1596415eac48b45babb50dbb5578d761e145a98db0397906e4db
 
 ABI:
-    
+
     [
     {
         "inputs": [ ], 
@@ -382,4 +382,4 @@ ABI:
         "stateMutability": "nonpayable", 
         "type": "function"
     }
-]
+    ]
