@@ -16,9 +16,13 @@ Enter the following details.
 
 
 Network Name: Godwoken Testnet
+
 RPC URL: https://godwoken-testnet-web3-rpc.ckbapp.dev
+
 Chain ID: 71393
+
 Currency Symbol: <Leave Empty>
+  
 Block Explorer URL: <Leave Empty>
 
   
@@ -39,10 +43,15 @@ open a browser tab to http://localhost:3000 to view the dApp UI!
 3. Install Polyjuice Dependencies
 
 cd ~/projects/nervos-gen-nft
+  
 yarn add @polyjuice-provider/web3@0.0.1-rc7 nervos-godwoken-integration@0.0.6
+  
 @polyjuice-provider/web3 is a custom Polyjuice web3 provider.
+  
 It is required for interaction with Nervos' Layer 2 smart contracts.
+  
 nervos-godwoken-integration is a tool that can generate Polyjuice address based on your Ethereum address. 
+  
 You might be required to use Polyjuice address if you store values mapped to addresses in your contracts.
   
 4. Configure the Web3 Provider for the Polyjuice Web3 Provider
@@ -54,15 +63,17 @@ You will not find it in any of the example project source files.
 export const CONFIG = {
     WEB3_PROVIDER_URL: 'http://localhost:8545'
 };
+  
 is changed to:
-
+  
 export const CONFIG = {
     WEB3_PROVIDER_URL: 'https://godwoken-testnet-web3-rpc.ckbapp.dev'
 };
   
 
 The two other values needed for the Polyjuice Web3 Provider are the ROLLUP_TYPE_HASH and the ETH_ACCOUNT_LOCK_CODE_HASH. 
-Both of these values are constants needed for the Godwoken Testnet. A full list of the various values for the Godwoken Testnet can be found here.
+Both of these values are constants needed for the Godwoken Testnet. 
+A full list of the various values for the Godwoken Testnet can be found here.
 
 We will add these values to our configuration object below. These values will be needed by our project, 
 so we are creating a new config file called config.ts to our source code.
@@ -70,29 +81,44 @@ so we are creating a new config file called config.ts to our source code.
 Here is the contents of the file ~/projects/nervos-gen-nft/src/config.ts that we just created:
 
 export const CONFIG = {
+  
     WEB3_PROVIDER_URL: 'https://godwoken-testnet-web3-rpc.ckbapp.dev',
+  
     ROLLUP_TYPE_HASH: '0x4cc2e6526204ae6a2e8fcf12f7ad472f41a1606d5b9624beebd215d780809f6a',
+  
     ETH_ACCOUNT_LOCK_CODE_HASH: '0xdeec13a7b8e100579541384ccaf4b5223733e4a5483c3aec95ddc4c1d5ea5b22'
+  
 };
+  
 We will use these config values in a moment, but first we need to import a few dependencies.
-  We will update the main UI in the file ~/projects/nervos-gen-nft/src/ui/app.tsx.
+  
+We will update the main UI in the file ~/projects/nervos-gen-nft/src/ui/app.tsx.
 
 Next, we add the following lines in the main dependency importation section of the file.
 
 import { PolyjuiceHttpProvider } from '@polyjuice-provider/web3';
+  
 import { CONFIG } from '../config';
+  
 This imports the Polyjuice Web3 Provider, which we will use in a moment, and the config file that we just created.
 
 Next we prepare a few constants, create the Polyjuice Provider, and use the Polyjuice Provider with a Web3 instance.
 
 const godwokenRpcUrl = CONFIG.WEB3_PROVIDER_URL;
+  
 const providerConfig = {
+  
     rollupTypeHash: CONFIG.ROLLUP_TYPE_HASH,
+  
     ethAccountLockCodeHash: CONFIG.ETH_ACCOUNT_LOCK_CODE_HASH,
+  
     web3Url: godwokenRpcUrl
 };
+  
 const provider = new PolyjuiceHttpProvider(godwokenRpcUrl, providerConfig);
+  
 const web3 = new Web3(provider);
+  
 The above code is a Web3 instance using a Polyjuice Web3 Provider. We will just call it "Polyjuice Web3" for short. 
 We need to take this code and replace the existing Ethereum Web3 instance. 
 In app.tsx, locate the existing Web3 instance, which should match the line below.
@@ -101,6 +127,7 @@ const web3 = new Web3((window as any).ethereum);
 Delete this line, and replace it with the Polyjuice Web3 code from above. Now our application is setup to communicate with Polyjuice using Web3!
 
 5. Set High Gas Limit
+  
 Open the file ~/projects/nervos-gen-nft/src/lib/contracts/SimpleStorageWrapper.ts 
 
 First, we define a simple object that contains the gas property used by MetaMask.
@@ -108,18 +135,25 @@ First, we define a simple object that contains the gas property used by MetaMask
 const DEFAULT_SEND_OPTIONS = {
     gas: 6000000
 };
+  
 This can be added in the top region of the file, and we will be using this constant in several other places.
 
 We will be adding it into the object passed to send() as the default values. For example, this code:
 
 this.contract.methods.set(value).send({
+  
     from: fromAddress
+  
 });
+  
 is changed to:
 
 this.contract.methods.set(value).send({
+  
     ...DEFAULT_SEND_OPTIONS,
+  
     from: fromAddress
+  
 });
   
 6. Display Polyjuice Address in Your Application
@@ -127,9 +161,11 @@ Every Ethereum address can be translated into a Polyjuice address on Nervos' Lay
 We will show the basic code here, but we will not cover the necessary changes for React to display it.
 
 import { AddressTranslator } from 'nervos-godwoken-integration';
+  
 We can then use the following code to find the Polyjuice address.
 
 const addressTranslator = new AddressTranslator();
+  
 const polyjuiceAddress = addressTranslator.ethAddressToGodwokenShortAddress(ethereumAddress);
   
 7. completed , View your dapp and start ui.
