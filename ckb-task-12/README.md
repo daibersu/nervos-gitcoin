@@ -1,6 +1,8 @@
                                     Document Porting An Existing Ethereum DApp To Polyjuice
 
 1. Setup the Godwoken Testnet Network in MetaMask
+
+
 first, you will need to configure a new custom RPC. From the network selection dropdown, select "Custom RPC".
 
 ![metamask-network-menu](https://user-images.githubusercontent.com/88998318/130059264-15e7a987-69de-4f6d-b926-8274f61e1ba7.png)
@@ -30,17 +32,25 @@ Block Explorer URL: <Leave Empty>
   
 
 cd ~/projects
+  
 git clone https://github.com/oceanSxq/nervos-gen-nft 
+  
 cd nervos-gen-nft
+  
 yarn
+  
 yarn build
+  
 yarn start:ganache
+  
 yarn ui
+  
 open a browser tab to http://localhost:3000 to view the dApp UI!
   
   
 
 3. Install Polyjuice Dependencies
+  
 
 cd ~/projects/nervos-gen-nft
   
@@ -55,28 +65,6 @@ nervos-godwoken-integration is a tool that can generate Polyjuice address based 
 You might be required to use Polyjuice address if you store values mapped to addresses in your contracts.
   
 4. Configure the Web3 Provider for the Polyjuice Web3 Provider
-
-
-The example below is just for demonstration of how your configuration file could look. 
-You will not find it in any of the example project source files.
-
-export const CONFIG = {
-    WEB3_PROVIDER_URL: 'http://localhost:8545'
-};
-  
-is changed to:
-  
-export const CONFIG = {
-    WEB3_PROVIDER_URL: 'https://godwoken-testnet-web3-rpc.ckbapp.dev'
-};
-  
-
-The two other values needed for the Polyjuice Web3 Provider are the ROLLUP_TYPE_HASH and the ETH_ACCOUNT_LOCK_CODE_HASH. 
-Both of these values are constants needed for the Godwoken Testnet. 
-A full list of the various values for the Godwoken Testnet can be found here.
-
-We will add these values to our configuration object below. These values will be needed by our project, 
-so we are creating a new config file called config.ts to our source code.
 
 Here is the contents of the file ~/projects/nervos-gen-nft/src/config.ts that we just created:
 
@@ -95,14 +83,18 @@ We will use these config values in a moment, but first we need to import a few d
 We will update the main UI in the file ~/projects/nervos-gen-nft/src/ui/app.tsx.
 
 Next, we add the following lines in the main dependency importation section of the file.
+  
 
 import { PolyjuiceHttpProvider } from '@polyjuice-provider/web3';
   
+  
 import { CONFIG } from '../config';
+  
   
 This imports the Polyjuice Web3 Provider, which we will use in a moment, and the config file that we just created.
 
 Next we prepare a few constants, create the Polyjuice Provider, and use the Polyjuice Provider with a Web3 instance.
+  
 
 const godwokenRpcUrl = CONFIG.WEB3_PROVIDER_URL;
   
