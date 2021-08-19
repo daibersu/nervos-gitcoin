@@ -5,7 +5,8 @@ To complete the tasks, you will need to submit the following materials for revie
 
 1,A screenshot of the accounts you created (account list) in ckb-cli.
 
-<img width="564" alt="task1-0" src="https://user-images.githubusercontent.com/88998318/130051372-79ad4bfb-5d6c-4a2b-81c7-aec1525b2622.png">
+<img width="560" alt="account new" src="https://user-images.githubusercontent.com/88998318/130054579-74e3dfd6-d65e-48b9-9c69-b2213a523b2a.png">
+
 
 2,A link to the Layer 1 address you funded on the Testnet Explorer.
 
