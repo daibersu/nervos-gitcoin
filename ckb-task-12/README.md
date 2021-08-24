@@ -40,7 +40,7 @@ Block Explorer URL: <Leave Empty>
 ```
 cd ~/projects
   
-git clone https://github.com/oceanSxq/nervos-gen-nft 
+git clone git@github.com:oceanSxq/nervos-gen-nft.git 
   
 cd nervos-gen-nft
   
