@@ -1,3 +1,6 @@
+1,A screenshot of the console output immediately after running the withdraw command.
+
+<img width="969" alt="task9-0" src="https://user-images.githubusercontent.com/88998318/130810948-056a3a09-6402-47b8-b4ed-025573114d92.png">
 
 2,The Ethereum address that you've used for your Layer 2 account (in text format).
 
